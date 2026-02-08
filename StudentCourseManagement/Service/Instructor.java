@@ -13,36 +13,48 @@ public class Instructor {
     public void login() {
         System.out.println("1-> Sign-in\n2-> Sign-Up\n3-> Exit");
         Scanner sc = new Scanner(System.in);
-        int key = sc.nextInt();
-        Enrollment enrollment = new Enrollment();
-        InstructorData inst = instructor(key);
+        try{
+            int key = sc.nextInt();
+            Enrollment enrollment = new Enrollment();
+            InstructorData inst = instructor(key);
+    
+            if(inst!=null){
+                boolean flag = true;
+                while (flag) {
+                    System.out.println("1-> Create Course  \n2-> Grade student  \n3-> List Available Course    \n4-> Exit");
+                    try{
+                        sc.nextLine();
+                        int choice = sc.nextInt();
+                    
+                        switch (choice) {
+                        case 1:
+                            createCourse(inst.getIid());
+                            break;
+                        case 2:
+                            enrollment.gradeAssignment(inst.getIid());
+                            break;
+                        case 3:
+                            listCourse();
+                            break;
+        
+                        default:
+                            flag = false;
+                            System.out.println("Exit from Instructor");
+                            break;
+                        }
+                    }
+                    catch(Exception e){
+                        System.out.println("Invalid Input" );
+                    }
 
-        if(inst!=null){
-            boolean flag = true;
-            while (flag) {
-                System.out.println("1-> Create Course  \n2-> Grade student  \n3-> List Available Course    \n4-> Exit");
-                int choice = sc.nextInt();
-            
-                switch (choice) {
-                case 1:
-                    createCourse(inst.getIid());
-                    break;
-                case 2:
-                    enrollment.gradeAssignment(inst.getIid());
-                    break;
-                case 3:
-                    listCourse();
-                    break;
-
-                default:
-                    flag = false;
-                    System.out.println("Exit from Instructor");
-                    break;
                 }
             }
+            else{
+                System.out.println("Give me correct user name and password");
+            }
         }
-        else{
-            System.out.println("Give me correct user name and password");
+        catch(Exception e){
+            System.out.println("Invalid Input");
         }
     }
 

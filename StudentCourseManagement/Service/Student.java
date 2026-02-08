@@ -13,39 +13,48 @@ public class Student {
     public void login(){
         System.out.println("1-> Sign-in\n2-> Sign-Up\n3-> Exit");
         Scanner sc = new Scanner(System.in);
-        int key = sc.nextInt();
-        Enrollment enroll = new Enrollment();
-        StudentData std = student(key);
-
-        if(std!=null){
-            boolean flag = true;
-            while (flag) {
-                System.out.println("1-> Enroll into course  \n2-> Enrolled Course  \n3-> Complete Assignment  \n4-> Check Grades of your course  \n5-> Exit");
-                int choice = sc.nextInt();
-                
-            
-                switch (choice) {
-                case 1:
-                    enroll.enrollCourse(std.getSid(),std.getName());
-                    break;
-                case 2:
-                    enroll.listEnrolledCourses(std.getSid());
-                    break;
-                case 3:
-                    enroll.completeAssignment(std.getSid());
-                    break;
-                case 4:
-                    enroll.isGraded(std.getSid());
-                    break;
-                default:
-                    flag = false;
-                    System.out.println("Exit from Student");
-                    break;
+        try{
+            int key = sc.nextInt();
+            Enrollment enroll = new Enrollment();
+            StudentData std = student(key);
+    
+            if(std!=null){
+                boolean flag = true;
+                while (flag) {
+                    System.out.println("1-> Enroll into course  \n2-> Enrolled Course  \n3-> Complete Assignment  \n4-> Check Grades of your course  \n5-> Exit");
+                    try{
+                        sc.nextLine();
+                        int choice = sc.nextInt();
+                        switch (choice) {
+                        case 1:
+                            enroll.enrollCourse(std.getSid(),std.getName());
+                            break;
+                        case 2:
+                            enroll.listEnrolledCourses(std.getSid());
+                            break;
+                        case 3:
+                            enroll.completeAssignment(std.getSid());
+                            break;
+                        case 4:
+                            enroll.isGraded(std.getSid());
+                            break;
+                        default:
+                            flag = false;
+                            System.out.println("Exit from Student");
+                            break;
+                        }
+                    }
+                    catch(Exception e){
+                        System.out.println("Invalid Input");
+                    }
                 }
             }
+            else{
+                System.out.println("Enter Correct user name and password");
+            }
         }
-        else{
-            System.out.println("Enter Correct user name and password");
+        catch(Exception e){
+            System.out.println("Invalid Input");
         }
     }
     public StudentData student(int key) {
