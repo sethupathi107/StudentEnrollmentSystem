@@ -1,14 +1,14 @@
 package StudentCourseManagement.Service;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
 import StudentCourseManagement.Model.StudentData;
+import StudentCourseManagement.Repo.StudentRepo;
 
 public class Student {
     static int sid=1;
-    static ArrayList<StudentData> studentList = new ArrayList<>();
+    
 
     public void login(){
         System.out.println("1-> Sign-in\n2-> Sign-Up\n3-> Exit");
@@ -85,12 +85,12 @@ public class Student {
         newUser.setName(name);
         newUser.setEmail(email);
         newUser.setPassword(password);
-        studentList.add(newUser);
+        StudentRepo.studentList.add(newUser);
         return newUser;
     }
 
     public StudentData signin(String sname , String pass){
-        for(StudentData student : studentList){
+        for(StudentData student : StudentRepo.studentList){
             if(student.getName().equals(sname) && student.getPassword().equals(pass) ){
                 return student;
             }
